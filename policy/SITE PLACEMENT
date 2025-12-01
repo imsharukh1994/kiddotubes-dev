@@ -1,0 +1,29 @@
+SITE PLACEMENT & QUICK IMPLEMENTATION CHECKLIST
+
+Where to place pages/links:
+
+Footer links: Privacy Policy, Children’s Privacy Notice, Terms, Cookie Policy, Community Guidelines, DMCA / Copyright.
+
+Registration / onboarding: show a short summary and link to the full Children’s Privacy Notice and require parental consent workflow for child accounts.
+
+Cookie banner: show on first visit with explicit choices and link to Cookie Policy.
+
+Settings page: allow parents to view/download/delete child data, withdraw consent.
+
+Moderation & reporting: add visible “Report” buttons and a parental contact form.
+
+Technical checklist:
+
+Add Privacy Policy and related pages to footer.
+
+Implement verifiable parental consent flow for child accounts (email verification + parental account + policy acceptance). 
+The Times of India
+
+Configure data retention & deletion APIs / admin console.
+
+Add cookie banner & opt-outs for analytics.
+
+Implement breach-notification procedure (internal IR plan + template user notification + regulatory notification). 
+The Times of India
+
+Maintain an internal record of processing activities (data mapping) to support DPDP compliance

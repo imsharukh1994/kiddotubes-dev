@@ -1,0 +1,36 @@
+{
+  "name": "kiddotubes",
+  "version": "1.0.0",
+  "description": "Kid-safe video platform with content filtering",
+  "main": "index.html",
+  "scripts": {
+    "start": "node backend/server.js & node web-server.js",
+    "serve": "node web-server.js",
+    "dev": "node web-server.js",
+    "server": "node backend/server.js",
+    "server:dev": "nodemon backend/server.js"
+  },
+  "keywords": [
+    "kids",
+    "videos",
+    "safe",
+    "filtering"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "nodemon": "^3.0.1"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "firebase": "^12.6.0",
+    "mongoose": "^8.20.0",
+    "node-fetch": "^2.7.0",
+    "puppeteer": "^24.31.0",
+    "ytdl-core": "^4.11.5"
+  }
+}

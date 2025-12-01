@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KiddoTubes - Safe Place for kids</title>
+<link rel="icon" type="image/png" href="Assest/ic_logo.png">
+
+<!-- Google AdSense Script -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5507783627988593"
+     crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="navbar-left">   
+        <button id="menuBtn" class="nav-btn menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <div class="navbar-center">
+        <div class="logo-container">
+            <img src="Assest/ic_logo.png" alt="KiddoTubes" class="logo-img">
+            <span class="logo-text">KiddoTubes</span>
+        </div>
+    </div>
+    <div class="navbar-right">
+        <button id="historyBtn" class="nav-btn history-btn" title="Watch History">
+            <i class="fas fa-history"></i>
+        </button>
+        <button id="profileBtn" class="nav-btn profile-btn" title="Profile">
+            <i class="fas fa-user-circle"></i>
+        </button>
+        <button id="parentBtn" class="nav-btn parent-btn" title="Parent Controls">
+            <i class="fas fa-shield"></i>
+        </button>
+    </div>
+</header>
+
+<!-- SIDEBAR/DRAWER -->
+<aside id="sidebar" class="sidebar hidden">
+    <div class="sidebar-header">
+        <h2>Menu</h2>
+        <button id="closeMenuBtn" class="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    <nav class="sidebar-nav">
+        <button class="category-btn active" data-cat="shows">
+            <i class="fas fa-star"></i> <span>Shows & Movies</span>
+        </button>
+        <button class="category-btn" data-cat="music">
+            <i class="fas fa-music"></i> <span>Music & Songs</span>
+        </button>
+        <button class="category-btn" data-cat="explore">
+            <i class="fas fa-lightbulb"></i> <span>Learning</span>
+        </button>
+        <button class="category-btn" data-cat="cartoons">
+            <i class="fas fa-smile"></i> <span>Cartoons</span>
+        </button>
+        <button class="category-btn" data-cat="movies">
+            <i class="fas fa-film"></i> <span>Movies</span>
+        </button> 
+        <button class="category-btn" data-cat="Short">
+            <i class="fas fa-video"></i> <span>Shorts</span>
+    </nav>
+</aside>
+
+<!-- OVERLAY FOR SIDEBAR -->
+<div id="sidebarOverlay" class="sidebar-overlay hidden"></div>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+    <!-- SEARCH AND FILTER SECTION -->
+    <div class="search-filter-container">
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search videos for kids..." autocomplete="off">
+            <button id="searchBtn" class="search-btn" title="Search">
+                <i class="fas fa-play"></i>
+            </button>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-container">
+            <select id="durationFilter" class="filter-select">
+                <option value="">⏱️ Duration</option>
+                <option value="short">Short (&lt; 5 min)</option>
+                <option value="medium">Medium (5-20 min)</option>
+                <option value="long">Long (&gt; 20 min)</option>
+            </select>
+            
+            <select id="sortFilter" class="filter-select">
+                <option value="relevance">📊 Relevance</option>
+                <option value="viewCount">👁️ Most Viewed</option>
+                <option value="publishedAt">📅 Newest</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- CATEGORY PILLS -->
+    <div class="category-tabs">
+        <button class="pill-btn active" data-cat="shows">🎬 All</button>
+        <button class="pill-btn" data-cat="shows">🎬 Shows</button>
+        <button class="pill-btn" data-cat="music">🎵 Music</button>
+        <button class="pill-btn" data-cat="explore">💡 Learn</button>
+        <button class="pill-btn" data-cat="cartoons">😄 Cartoons</button>
+        <button class="pill-btn" data-cat="movies">🎥 Movies</button>
+        <button class="pill-btn" data-cat="Short"> Short</button>
+    </div>
+
+    <!-- SECTION TITLE -->
+    <h2 id="pageTitle">Popular Videos</h2>
+    
+    <!-- TOP GOOGLE ADVERTISEMENT BANNER 
+    <div class="ad-banner ad-top" id="topAd">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5507783627988593"
+             data-ad-slot="1684862192"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div> -->
+
+    <!-- VIDEO GRID -->
+    <div id="videoList" class="video-grid"></div>
+    
+    <!-- MIDDLE GOOGLE ADVERTISEMENT -->
+    <div class="ad-banner ad-middle" id="middleAd">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-5507783627988593"
+             data-ad-slot="8945127634"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- PAGINATION -->
+    <div id="paginationContainer" class="pagination-container">
+        <button id="prevBtn" class="pagination-btn" disabled>← Previous</button>
+        <div id="pageNumbers" class="page-numbers"></div>
+        <button id="nextBtn" class="pagination-btn">Next →</button>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>About KiddoTubes</h4>
+            <p>Safe, kid-friendly video platform with age-appropriate content for children 2-12 years old.</p>
+        </div>
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#" onclick="return false;">Privacy Policy</a></li>
+                <li><a href="#" onclick="return false;">Terms of Service</a></li>
+                <li><a href="#" onclick="return false;">Parent Guide</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Contact</h4>
+            <p>Email: support@kiddotubes.com</p>
+            <p>© 2025 KiddoTubes. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- AGE POPUP -->
+<div id="agePopup" class="modal hidden">
+    <div class="modal-popup">
+        <h2>Who is watching? 👋</h2>
+        <p>Select your child's age</p>
+        <div class="age-buttons">
+            <button class="ageBtn" data-age="2-4">
+                <div class="age-icon">👶</div>
+                <div>2–4 years</div>
+            </button>
+            <button class="ageBtn" data-age="5-7">
+                <div class="age-icon">👧</div>
+                <div>5–7 years</div>
+            </button>
+            <button class="ageBtn" data-age="8-12">
+                <div class="age-icon">👦</div>
+                <div>8–12 years</div>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- VIDEO PLAYER MODAL -->
+<div id="playerModal" class="video-modal hidden">
+    <button id="closePlayer" class="video-close-btn">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="video-modal-content">
+        <div id="playerContainer" class="player-container">
+            <!-- Video player will be injected here -->
+        </div>
+        <div class="video-details">
+            <h2 id="playerTitle">Video Title</h2>
+            <p id="playerDescription">Video description</p>
+            <div id="playerMetadata" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee; font-size: 14px; color: #666;">
+                <p id="playerChannel">Channel: -</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div id="profileModal" class="modal hidden">
+    <div class="modal-popup profile-popup">
+        <div class="profile-header">
+            <button id="closeProfileModal" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Profile Content (when logged in) -->
+        <div id="profileContent" class="profile-content hidden">
+            <div class="profile-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h2 id="profileName">Parent Name</h2>
+            <p id="profileEmail">parent@email.com</p>
+            <div class="profile-stats">
+                <div class="stat">
+                    <span class="stat-label">Child Age</span>
+                    <span id="profileAge" class="stat-value">2-4 years</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Watch Time</span>
+                    <span class="stat-value">5h 30m</span>
+                </div>
+            </div>
+
+            <!-- Parent Settings in Profile -->
+            <div class="profile-settings">
+                <h3>⚙️ Child Settings</h3>
+                <div class="control-section">
+                    <label for="profileAgeSelect">Child Age Group</label>
+                    <select id="profileAgeSelect">
+                        <option value="2-4">👶 2–4 years</option>
+                        <option value="5-7">👧 5–7 years</option>
+                        <option value="8-12">👦 8–12 years</option>
+                    </select>
+                </div>
+                <div class="control-section">
+                    <label>
+                        <input type="checkbox" id="safeSearchToggle" checked>
+                        Enable Safe Search (Recommended)
+                    </label>
+                </div>
+                <div class="control-section">
+                    <label>
+                        <input type="checkbox" id="restrictedModeToggle" checked>
+                        Restricted Mode
+                    </label>
+                </div>
+                <button id="saveProfileSettingsBtn" class="save-btn">Save Settings</button>
+                <p id="profileSaveMsg" class="success-msg hidden">✅ Settings saved!</p>
+            </div>
+
+            <!-- Quick Access Buttons -->
+            <div class="profile-quick-access" style="display: flex; gap: 10px; margin: 20px 0;">
+                <button id="favoritesBtn" class="quick-access-btn" title="My Favorites" style="flex: 1; padding: 12px; background: linear-gradient(135deg, #FF6B35, #FF8C5A); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                    <i class="fas fa-heart"></i> My Favorites
+                </button>
+            </div>
+
+            <button id="logoutBtn" class="logout-btn">🚪 Logout</button>
+        </div>
+
+        <!-- Auth Content (when not logged in) -->
+        <div id="authContent" class="auth-content">
+            <!-- Login Tab -->
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" onclick="switchToLogin(event)">Login</button>
+                <button class="auth-tab-btn" onclick="switchToRegister(event)">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form" style="display:block;">
+                <h2>Welcome Back</h2>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+                <p class="form-error" id="loginError" style="display:none;"></p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="signupForm" class="auth-form" style="display:none;">
+                <h2>Create Account</h2>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="signupName" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signupPassword" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-btn">Create Account</button>
+                <p class="form-error" id="signupError" style="display:none;"></p>
+            </form>
+
+            <!-- Google Sign-In -->
+            <div style="text-align: center; margin: 20px 0;">
+                <p style="color: #999; margin-bottom: 15px;">OR</p>
+                <button type="button" id="googleSignInBtn" class="social-btn google-btn">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="parentModal" class="modal hidden">
+    <div class="modal-popup parent-popup">
+        <div class="parent-header">
+            <h2>📋 Policies & Information</h2>
+            <button id="closeParentModal" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="parent-content">
+            <!-- Tabs Navigation -->
+            <div class="parent-tabs">
+                <button class="parent-tab-btn active" data-tab="policies">📋 Policies</button>
+                <button class="parent-tab-btn" data-tab="privacy">🔒 Privacy</button>
+                <button class="parent-tab-btn" data-tab="terms">📜 Terms</button>
+                <button class="parent-tab-btn" data-tab="community">👥 Community</button>
+                <button class="parent-tab-btn" data-tab="dpdp">⚖️ DPDP</button>
+                <button class="parent-tab-btn" data-tab="more">📚 More</button>
+                <button class="parent-tab-btn" data-tab="about">ℹ️ About</button>
+            </div>
+
+            <!-- Policies Tab -->
+            <div id="policies-tab" class="parent-tab-content active">
+                <div class="policies-container">
+                    <h3>Content Policies</h3>
+                    <div class="policy-item">
+                        <h4>✅ What's Allowed</h4>
+                        <ul>
+                            <li>Educational content and learning videos</li>
+                            <li>Kids' cartoons and animated shows</li>
+                            <li>Music and songs for children</li>
+                            <li>Age-appropriate entertainment</li>
+                            <li>Nursery rhymes and bedtime stories</li>
+                        </ul>
+                    </div>
+                    <div class="policy-item warning">
+                        <h4>⚠️ What's Restricted</h4>
+                        <ul>
+                            <li>Violent or scary content</li>
+                            <li>Adult language and profanity</li>
+                            <li>Inappropriate sexual content</li>
+                            <li>Commercial ads (limited)</li>
+                            <li>Misleading or harmful information</li>
+                        </ul>
+                    </div>
+                    <div class="policy-item">
+                        <h4>🎯 Viewing Guidelines</h4>
+                        <ul>
+                            <li>Content is filtered based on selected age group</li>
+                            <li>Safe Search is enabled by default</li>
+                            <li>Videos are from trusted sources</li>
+                            <li>Regular updates to content library</li>
+                            <li>Parent approval recommended for new content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Tab -->
+            <div id="privacy-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>Privacy & Safety</h3>
+                    <div class="policy-item">
+                        <h4>🔐 Data Protection</h4>
+                        <p>We protect your child's data with industry-standard encryption. No personal information is shared with third parties.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>👁️ Monitoring</h4>
+                        <p>Parents can monitor viewing history. We do not track browsing outside the app. Your privacy settings are stored locally.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>🚫 No Ads Targeting</h4>
+                        <p>We minimize targeted advertising. Your child cannot make in-app purchases or access external links.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>📞 Contact</h4>
+                        <p>For privacy concerns, please contact us at: <strong>support@kiddotubes.com</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Tab -->
+            <div id="about-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>About KiddoTubes</h3>
+                    <div class="policy-item">
+                        <h4>🎬 What is KiddoTubes?</h4>
+                        <p>KiddoTubes is a safe, kid-friendly video platform designed to provide age-appropriate entertainment and educational content for children aged 2-12 years.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>🎯 Our Mission</h4>
+                        <p>To create a secure digital environment where children can explore, learn, and have fun while parents maintain full control and visibility.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>🔒 Safety First</h4>
+                        <p>All content is carefully curated and filtered. Safe Search is enabled by default. No external links or inappropriate ads are allowed.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>👨‍👩‍👧 Family-Focused</h4>
+                        <p>Parents have complete control over content, viewing time, and child settings. We believe in transparency and put families first.</p>
+                    </div>
+                    <div class="policy-item">
+                        <h4>📱 Version</h4>
+                        <p><strong>KiddoTubes v1.0</strong><br>© 2025 All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms of Service Tab -->
+            <div id="terms-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>Terms of Service</h3>
+                    <p><strong>Effective date: November 17, 2025</strong></p>
+                    <p>By using KiddoTubes you agree to these terms. Please read them carefully.</p>
+                    
+                    <div class="policy-item">
+                        <h4>1️⃣ Who We Are</h4>
+                        <p><strong>KiddoTubes</strong> — Contact: support@kiddotubes.com</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>2️⃣ Acceptable Use</h4>
+                        <p>Users must not upload illegal content, attempt to hack the service, or share copyrighted material they do not own. Users must follow our Community Guidelines.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>3️⃣ Account Rules</h4>
+                        <p>Parents are responsible for accounts for their children. Choose a secure password; you are responsible for activity under your account.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>4️⃣ Content Ownership</h4>
+                        <p>Users retain ownership of content they upload, but by uploading they grant KiddoTubes a non-exclusive license to host and display it.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>5️⃣ Disclaimers</h4>
+                        <p>Service provided "as is". KiddoTubes limits liability to the maximum permitted by law.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>6️⃣ Changes</h4>
+                        <p>We may update these Terms; material changes will be notified.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Guidelines Tab -->
+            <div id="community-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>Community Guidelines</h3>
+                    <p>KiddoTubes is for children — content must be age-appropriate, non-violent, non-sexual, and free from hate speech.</p>
+                    
+                    <div class="policy-item">
+                        <h4>✅ What's Allowed</h4>
+                        <ul>
+                            <li>Educational and learning content</li>
+                            <li>Age-appropriate children's cartoons</li>
+                            <li>Music and songs for kids</li>
+                            <li>Nursery rhymes and bedtime stories</li>
+                            <li>Wholesome entertainment</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-item warning">
+                        <h4>🚫 Not Allowed</h4>
+                        <ul>
+                            <li>Violent or scary content</li>
+                            <li>Adult language and profanity</li>
+                            <li>Sexual or inappropriate content</li>
+                            <li>Bullying or harassment</li>
+                            <li>Personal information of children (names, addresses, schools)</li>
+                            <li>Hate speech or discrimination</li>
+                            <li>Misleading or harmful information</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>⚠️ Moderation</h4>
+                        <p>Uploads may be reviewed by human moderators and automated filters. Parents can flag content. Violations result in removal, warning, or suspension. Use the "Report" button to flag inappropriate content.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DPDP Policy Tab -->
+            <div id="dpdp-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>DPDP Privacy Policy (India Compliant)</h3>
+                    <p><strong>Effective date: November 17, 2025</strong></p>
+                    <p><strong>Data Protection Officer:</strong> Shaharukh M | <strong>Contact:</strong> privacy@kiddotubes.com</p>
+                    
+                    <div class="policy-item">
+                        <h4>📊 Data We Collect</h4>
+                        <ul>
+                            <li>Account & profile: name, email, username, hashed password</li>
+                            <li>Child profile: display name, age bracket (required for age-appropriate content)</li>
+                            <li>Usage data: IP, device info, videos watched, preferences</li>
+                            <li>Support communications: emails, support logs</li>
+                            <li>Optional: profile photos (only if parent uploads)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>✋ Parental Consent</h4>
+                        <p>Child accounts require verifiable parental consent. We collect only minimal necessary data. No children's data is sold for advertising or marketing without explicit parental consent.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>⏰ Data Retention</h4>
+                        <ul>
+                            <li>Account & profile data: until account deletion + 2 years</li>
+                            <li>Support logs: 12 months</li>
+                            <li>Analytics: 36 months (anonymized)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>🔐 Your Rights</h4>
+                        <p>You have the right to: access, correct, delete, export, and withdraw consent. Contact privacy@kiddotubes.com to exercise any of these rights.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>🛡️ Security</h4>
+                        <p>We use encryption, access controls, and regular security audits. In case of a data breach, we will notify affected users immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Info Tab (Cookie, Copyright, Site Placement) -->
+            <div id="more-tab" class="parent-tab-content">
+                <div class="policies-container">
+                    <h3>More Information</h3>
+                    
+                    <div class="policy-item">
+                        <h4>🍪 Cookie Policy</h4>
+                        <p>We use cookies and similar technologies to operate the site and remember preferences. Categories: essential (required), preferences, analytics, marketing (only with parent consent). You can manage cookie settings. Analytics can be opted out.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>©️ Copyright & DMCA</h4>
+                        <p>If you believe content on KiddoTubes infringes your copyright, send a takedown notice to: DMCA@kiddotubes.example with: (1) identification of copyrighted work, (2) location (URL), (3) statement under penalty of perjury, (4) contact info. We will remove content where required. Repeat infringers may be terminated.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>📍 Site Placement & Implementation</h4>
+                        <p>Privacy Policy, Terms, Cookie Policy, Community Guidelines, and DMCA policy links are available in the footer. Parental consent flows are implemented during account creation. Parents can manage data and privacy settings in their profile.</p>
+                    </div>
+                    
+                    <div class="policy-item">
+                        <h4>📞 Support & Reporting</h4>
+                        <p>Email: support@kiddotubes.com | Report button available on all videos | Parental contact form in settings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== AUTHENTICATION MODALS ===== -->
+
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal hidden">
+    <div class="modal-content auth-modal">
+        <button class="close-btn" onclick="document.getElementById('loginModal').classList.add('hidden')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>Welcome Back!</h2>
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="auth-btn">Login</button>
+            <p class="form-error" id="loginError" style="display:none;"></p>
+            <p style="text-align: center; margin-top: 10px;">
+                Don't have an account? <a href="#" onclick="switchToRegister(event)" style="color: #FF6B35; cursor: pointer;">Register here</a>
+            </p>
+        </form>
+        
+        <div class="divider">OR</div>
+        
+        <div class="social-auth">
+            <button id="googleLoginBtn" class="social-btn google-btn" title="Login with Google">
+                <i class="fab fa-google"></i> Google
+            </button>
+            <button id="phoneLoginBtn" class="social-btn phone-btn" title="Login with Phone">
+                <i class="fas fa-phone"></i> Phone
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div id="registerModal" class="modal hidden">
+    <div class="modal-content auth-modal">
+        <button class="close-btn" onclick="document.getElementById('registerModal').classList.add('hidden')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>Create Account</h2>
+        <form id="registerForm" class="auth-form">
+            <div class="form-group">
+                <label for="registerName">Full Name</label>
+                <input type="text" id="registerName" placeholder="Enter your name" required>
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" placeholder="At least 6 characters" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="registerConfirm">Confirm Password</label>
+                <input type="password" id="registerConfirm" placeholder="Re-enter password" required>
+            </div>
+            <div class="form-group checkbox">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">I agree to Terms of Service and Privacy Policy</label>
+            </div>
+            <button type="submit" class="auth-btn">Create Account</button>
+            <p class="form-error" id="registerError" style="display:none;"></p>
+            <p style="text-align: center; margin-top: 10px;">
+                Already have an account? <a href="#" onclick="switchToLogin(event)" style="color: #FF6B35; cursor: pointer;">Login here</a>
+            </p>
+        </form>
+        
+        <div class="divider">OR</div>
+        
+        <div class="social-auth">
+            <button id="googleRegisterBtn" class="social-btn google-btn" title="Sign up with Google">
+                <i class="fab fa-google"></i> Google
+            </button>
+            <button id="phoneRegisterBtn" class="social-btn phone-btn" title="Sign up with Phone">
+                <i class="fas fa-phone"></i> Phone
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- PHONE AUTH MODAL -->
+<div id="phoneAuthModal" class="modal hidden">
+    <div class="modal-content auth-modal">
+        <button class="close-btn" onclick="document.getElementById('phoneAuthModal').classList.add('hidden')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>Phone Authentication</h2>
+        
+        <div id="phoneInputStep">
+            <form id="phoneForm" class="auth-form">
+                <div class="form-group">
+                    <label for="countryCode">Country Code</label>
+                    <input type="text" id="countryCode" placeholder="+1" value="+1" required>
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" placeholder="Enter your phone number" required>
+                </div>
+                <div id="recaptcha" style="margin: 15px 0;"></div>
+                <button type="submit" class="auth-btn">Send OTP</button>
+                <p class="form-error" id="phoneError" style="display:none;"></p>
+            </form>
+        </div>
+        
+        <div id="otpStep" style="display:none;">
+            <form id="otpForm" class="auth-form">
+                <p>Enter the OTP sent to your phone</p>
+                <div class="form-group">
+                    <label for="otpCode">OTP Code</label>
+                    <input type="text" id="otpCode" placeholder="000000" maxlength="6" required>
+                </div>
+                <button type="submit" class="auth-btn">Verify OTP</button>
+                <p class="form-error" id="otpError" style="display:none;"></p>
+                <button type="button" class="secondary-btn" onclick="resetPhoneAuth()">Use Different Number</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- PROFILE SWITCHER MODAL -->
+<div id="profileModal" class="modal hidden">
+    <div class="modal-content profile-modal">
+        <button class="close-btn" onclick="closeModal('profileModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>👨‍👩‍👧 Select Profile</h2>
+        <div id="profilesList" class="profiles-list"></div>
+        <button id="addProfileBtn" class="add-profile-btn">
+            <i class="fas fa-plus"></i> Add New Profile
+        </button>
+    </div>
+</div>
+
+<!-- WATCH HISTORY MODAL -->
+<div id="historyModal" class="modal hidden">
+    <div class="modal-content history-modal">
+        <button class="close-btn" onclick="closeModal('historyModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>📺 Watch History</h2>
+        <div id="continueWatchingSection" class="continue-watching-section" style="display:none;">
+            <h3>Continue Watching</h3>
+            <div id="continueWatchingGrid" class="video-grid"></div>
+        </div>
+        <h3>All History</h3>
+        <div id="historyList" class="history-list"></div>
+        <button id="clearHistoryBtn" class="clear-btn">
+            <i class="fas fa-trash"></i> Clear History
+        </button>
+    </div>
+</div>
+
+<!-- FAVORITES MODAL -->
+<div id="favoritesModal" class="modal hidden">
+    <div class="modal-content favorites-modal">
+        <button class="close-btn" onclick="closeModal('favoritesModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>⭐ My Favorites</h2>
+        <div id="favoritesList" class="video-grid"></div>
+        <p id="noFavoritesMsg" style="text-align:center; color:#666; display:none;">
+            No favorites yet. Heart a video to add it!
+        </p>
+    </div>
+</div>
+
+<!-- PARENTAL CONTROLS MODAL -->
+<div id="parentalModal" class="modal hidden">
+    <div class="modal-content parental-modal">
+        <button class="close-btn" onclick="closeModal('parentalModal')">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2>🔒 Parental Controls</h2>
+        
+        <div class="parental-section">
+            <h3>🔑 Set PIN</h3>
+            <div class="form-group">
+                <label>Enter 4-digit PIN:</label>
+                <input type="password" id="pinInput" placeholder="••••" maxlength="4" pattern="\d{4}">
+                <button id="setPinBtn" class="secondary-btn">Set PIN</button>
+            </div>
+        </div>
+
+        <div class="parental-section">
+            <h3>🚫 Restrict Categories</h3>
+            <div class="restrictions-grid">
+                <label class="checkbox-item">
+                    <input type="checkbox" class="category-restriction" value="music">
+                    🎵 Music
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="category-restriction" value="cartoons">
+                    🎨 Cartoons
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="category-restriction" value="movies">
+                    🎬 Movies
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" class="category-restriction" value="shows">
+                    📺 Shows
+                </label>
+            </div>
+        </div>
+
+        <div class="parental-section">
+            <h3>⏱️ Screen Time Limit</h3>
+            <div class="form-group">
+                <label>Max minutes per day:</label>
+                <input type="number" id="screenTimeLimitInput" placeholder="30" min="0" max="480">
+                <button id="setScreenTimeBtn" class="secondary-btn">Set Limit</button>
+            </div>
+        </div>
+
+        <button id="saveParentalBtn" class="auth-btn">
+            <i class="fas fa-save"></i> Save Controls
+        </button>
+    </div>
+</div>
+
+<!-- RECOMMENDATIONS SECTION (In main content, before video grid) -->
+<div id="recommendationsSection" class="recommendations-section" style="display:none;">
+    <h2>🎯 Recommended For You</h2>
+    <div id="recommendationsGrid" class="video-grid"></div>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<!-- Firebase SDK from CDN -->
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+
+<script>
+    // Firebase configuration is initialized in auth.js
+    // This ensures consistent config across the app
+    console.log("📄 index.html loaded - Firebase will initialize via auth.js");
+</script>
+
+<!-- MongoDB Database Client -->
+<script src="db-client.js"></script>
+
+<!-- Application Scripts -->
+<script src="auth.js"></script>
+<script src="app-no-firebase.js"></script>
+</body>
+</html>

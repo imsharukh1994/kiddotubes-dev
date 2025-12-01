@@ -1,0 +1,317 @@
+{
+  "console": [
+    {
+      "type": "log",
+      "text": "📄 index.html loaded - Firebase will initialize via auth.js"
+    },
+    {
+      "type": "log",
+      "text": "🚀 Firebase Auth Loading (Optimized)..."
+    },
+    {
+      "type": "log",
+      "text": "✅ App.js loaded successfully!"
+    },
+    {
+      "type": "log",
+      "text": "🔄 Checking MongoDB connection..."
+    },
+    {
+      "type": "log",
+      "text": "✅ Firebase Ready"
+    },
+    {
+      "type": "log",
+      "text": "🎬 DOM Content Loaded - KiddoTubes Starting"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video list element initialized: true"
+    },
+    {
+      "type": "log",
+      "text": "✅ Current age group: 2-4"
+    },
+    {
+      "type": "log",
+      "text": "🔍 Profile elements check - Btn: true Modal: true Close: true"
+    },
+    {
+      "type": "log",
+      "text": "📱 Saved age from localStorage: 2-4"
+    },
+    {
+      "type": "log",
+      "text": "🎯 Age found or no popup, loading videos"
+    },
+    {
+      "type": "log",
+      "text": "=== LOADING CATEGORY === shows Search: "
+    },
+    {
+      "type": "log",
+      "text": "Age group: 2-4"
+    },
+    {
+      "type": "log",
+      "text": "Search query: baby cartoons nursery rhymes toddler songs"
+    },
+    {
+      "type": "log",
+      "text": "Attempting backend YouTube search..."
+    },
+    {
+      "type": "log",
+      "text": "✅ App fully initialized!"
+    },
+    {
+      "type": "warn",
+      "text": "[DOM] Found 2 elements with non-unique id #loginEmail: (More info: https://goo.gl/9p2vKq) %o %o"
+    },
+    {
+      "type": "warn",
+      "text": "[DOM] Found 2 elements with non-unique id #loginForm: (More info: https://goo.gl/9p2vKq) %o %o"
+    },
+    {
+      "type": "warn",
+      "text": "[DOM] Found 2 elements with non-unique id #loginPassword: (More info: https://goo.gl/9p2vKq) %o %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"new-password\"): (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"new-password\"): (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq) %o"
+    },
+    {
+      "type": "log",
+      "text": "✅ MongoDB backend connected"
+    },
+    {
+      "type": "log",
+      "text": "✅ API key loaded from backend config"
+    },
+    {
+      "type": "log",
+      "text": "✅ Firebase Ready"
+    },
+    {
+      "type": "log",
+      "text": "✅ Backend API successful"
+    },
+    {
+      "type": "log",
+      "text": "📺 Converting backend response format..."
+    },
+    {
+      "type": "log",
+      "text": "✅ API Response received: 20 videos"
+    },
+    {
+      "type": "log",
+      "text": "📺 First video sample: JSHandle@object"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: HI5upQGIqmY | Title: Johny Johny Yes Papa - Learn Colors with Colorful BALLS + Baby Shark Surprise Eggs - Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: CaBEdunlaOU | Title: Boo Boo Song + More Nursery Rhymes &amp; Kids Songs | Stay Calm &amp; Feel Better | NuNu Tv"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: ibpP7w5MY_o | Title: Rabbit Went Over The Mountain | Nursery Rhymes &amp; Kids Songs | NuNu Tv #childrensongs #toddlersongs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: dZUq8hpKICY | Title: Train Choo Choo Song | Find the Animal + More Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: akIrVWm0v48 | Title: Ten Little Babies Boo Boo Song | Take Care of Babies | Nursery Rhyme &amp; Kids Song | BabyBus"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: zDOjJIwjHnc | Title: I Want That | Share It Please | Nursery Rhymes &amp; Kids Songs | NuNu Tv"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: drkOBuiGPCM | Title: Old MacDonald Song with Safari Animals | Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: 8anZWMbSv5U | Title: Monster Police 🧟🚨 | Kids Songs &amp; Nursery Rhymes | Baby Blue"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: Z_sWD5iSE0w | Title: Let&#39;s Count 5 Little Ducks! 🐤 | CoComelon Nursery Rhymes and Kids Songs | Animals for Kids"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: WN1FhKMgeLU | Title: Rain Rain Go Away + More Nursery Rhymes &amp; Kids Songs / Cartoons Nick"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: 5gZOYKHXwyQ | Title: Nursery Rhymes for Kids | Songs Compilation - Itsy Bitsy Spider + More Children Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: 4edz2UIo-D8 | Title: The Tiny Ants Go Marching Song + MORE Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: WZEBjdylXWI | Title: Crawling Crawling | Nursery Rhymes &amp; Kids Songs | Happy Tots #babysongs #toddlersongs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: BQ_gTCPvCns | Title: Baa Baa Black Sheep | Newborn Baby Songs &amp; Nursery Rhymes"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: N5YSbaUl9Y4 | Title: 5 Little Ducks(Learn Colors Song) | Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: 71h8MZshGSs | Title: ABC Song + More Nursery Rhymes &amp; Kids Songs - CoComelon"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: gm84HwG9F5I | Title: Wheels On The Bus Animals + More Nursery Rhymes &amp; Kids Songs | NuNu Tv"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: tW7w0m6_-pU | Title: Five Colorful Ducks | Lalafun Nursery Rhymes &amp; Kids Songs #kidssongs #forkids #nurseryrhymes"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: c2qNI3ZMHa8 | Title: Baby Lala Wakes Up Sleeping Bunnies 🐰 + MORE Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "📺 Video found - ID: cZQ0Jarh3IM | Title: Apples and Bananas | Feeding Animals Song +MORE Lalafun Nursery Rhymes &amp; Kids Songs"
+    },
+    {
+      "type": "log",
+      "text": "✅ Video approved and added"
+    },
+    {
+      "type": "log",
+      "text": "✅ Added 20 videos | ❌ Blocked 0 inappropriate videos"
+    },
+    {
+      "type": "log",
+      "text": "📺 About to render 20 videos to page"
+    },
+    {
+      "type": "log",
+      "text": "✅ Videos loaded successfully!"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://localhost:5000/api/config",
+      "status": 200,
+      "text": "{\"youtubeApiKey\":\"AIzaSyA8s6aCuh6VRgOFj1sMqKn1mrS_5_WaMVk\",\"environment\":\"development\"}"
+    },
+    {
+      "url": "http://localhost:5000/api/videos?q=baby%20cartoons%20nursery%20rhymes%20toddler%20songs&maxResults=30",
+      "status": 200,
+      "text": "{\"success\":true,\"source\":\"youtube\",\"query\":\"baby cartoons nursery rhymes toddler songs\",\"page\":1,\"videos\":[{\"id\":\"HI5upQGIqmY\",\"title\":\"Johny Johny Yes Papa - Learn Colors with Colorful BALLS + Baby Shark Surprise Eggs - Kids Songs\",\"channel\":\"LooLoo Kids - Nursery Rhymes and Children's Songs\",\"thumbnail\":\"https://i.ytimg.com/vi/HI5upQGIqmY/mqdefault.jpg\",\"publishedAt\":\"2025-07-23T09:04:51Z\",\"source\":\"youtube\"},{\"id\":\"CaBEdunlaOU\",\"title\":\"Boo Boo Song + More Nursery Rhymes &amp; Kids Songs | Stay Calm &amp; Feel Better | NuNu Tv\",\"channel\":\"NuNu Tv - Nursery Rhymes \",\"thumbnail\":\"https://i.ytimg.com/vi/CaBEdunlaOU/mqdefault.jpg\",\"publishedAt\":\"2025-06-17T05:00:12Z\",\"source\":\"youtube\"},{\"id\":\"ibpP7w5MY_o\",\"title\":\"Rabbit Went Over The Mountain | Nursery Rhymes &amp; Kids Songs | NuNu Tv #childrensongs #toddlersongs\",\"channel\":\"NuNu Tv - Nursery Rhymes \",\"thumbnail\":\"https://i.ytimg.com/vi/ibpP7w5MY_o/mqdefault.jpg\",\"publishedAt\":\"2025-01-25T04:29:18Z\",\"source\":\"youtube\"},{\"id\":\"dZUq8hpKICY\",\"title\":\"Train Choo Choo Song | Find the Animal + More Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/dZUq8hpKICY/mqdefault.jpg\",\"publishedAt\":\"2025-03-11T10:06:32Z\",\"source\":\"youtube\"},{\"id\":\"akIrVWm0v48\",\"title\":\"Ten Little Babies Boo Boo Song | Take Care of Babies | Nursery Rhyme &amp; Kids Song | BabyBus\",\"channel\":\"BabyBus - Kids Songs and Cartoons\",\"thumbnail\":\"https://i.ytimg.com/vi/akIrVWm0v48/mqdefault.jpg\",\"publishedAt\":\"2025-08-14T10:30:01Z\",\"source\":\"youtube\"},{\"id\":\"zDOjJIwjHnc\",\"title\":\"I Want That | Share It Please | Nursery Rhymes &amp; Kids Songs | NuNu Tv\",\"channel\":\"NuNu Tv - Nursery Rhymes \",\"thumbnail\":\"https://i.ytimg.com/vi/zDOjJIwjHnc/mqdefault.jpg\",\"publishedAt\":\"2025-04-29T05:00:56Z\",\"source\":\"youtube\"},{\"id\":\"drkOBuiGPCM\",\"title\":\"Old MacDonald Song with Safari Animals | Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/drkOBuiGPCM/mqdefault.jpg\",\"publishedAt\":\"2024-11-18T07:04:52Z\",\"source\":\"youtube\"},{\"id\":\"8anZWMbSv5U\",\"title\":\"Monster Police 🧟🚨 | Kids Songs &amp; Nursery Rhymes | Baby Blue\",\"channel\":\"Minibus - Nursery Rhymes & Kids Songs\",\"thumbnail\":\"https://i.ytimg.com/vi/8anZWMbSv5U/mqdefault.jpg\",\"publishedAt\":\"2025-01-27T14:48:55Z\",\"source\":\"youtube\"},{\"id\":\"Z_sWD5iSE0w\",\"title\":\"Let&#39;s Count 5 Little Ducks! 🐤 | CoComelon Nursery Rhymes and Kids Songs | Animals for Kids\",\"channel\":\"Moonbug Kids - Animals for Kids\",\"thumbnail\":\"https://i.ytimg.com/vi/Z_sWD5iSE0w/mqdefault.jpg\",\"publishedAt\":\"2025-04-22T11:00:54Z\",\"source\":\"youtube\"},{\"id\":\"WN1FhKMgeLU\",\"title\":\"Rain Rain Go Away + More Nursery Rhymes &amp; Kids Songs / Cartoons Nick\",\"channel\":\"Nick\",\"thumbnail\":\"https://i.ytimg.com/vi/WN1FhKMgeLU/mqdefault.jpg\",\"publishedAt\":\"2025-06-30T11:00:57Z\",\"source\":\"youtube\"},{\"id\":\"5gZOYKHXwyQ\",\"title\":\"Nursery Rhymes for Kids | Songs Compilation - Itsy Bitsy Spider + More Children Songs\",\"channel\":\"Twinkle Little Songs - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/5gZOYKHXwyQ/mqdefault.jpg\",\"publishedAt\":\"2019-07-26T16:15:17Z\",\"source\":\"youtube\"},{\"id\":\"4edz2UIo-D8\",\"title\":\"The Tiny Ants Go Marching Song + MORE Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/4edz2UIo-D8/mqdefault.jpg\",\"publishedAt\":\"2024-11-08T09:54:52Z\",\"source\":\"youtube\"},{\"id\":\"WZEBjdylXWI\",\"title\":\"Crawling Crawling | Nursery Rhymes &amp; Kids Songs | Happy Tots #babysongs #toddlersongs\",\"channel\":\"Happy Tots - Nursery Rhymes and Kids Songs\",\"thumbnail\":\"https://i.ytimg.com/vi/WZEBjdylXWI/mqdefault.jpg\",\"publishedAt\":\"2025-05-29T12:30:44Z\",\"source\":\"youtube\"},{\"id\":\"BQ_gTCPvCns\",\"title\":\"Baa Baa Black Sheep | Newborn Baby Songs &amp; Nursery Rhymes\",\"channel\":\"Little LaLa's Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/BQ_gTCPvCns/mqdefault.jpg\",\"publishedAt\":\"2024-10-03T07:01:24Z\",\"source\":\"youtube\"},{\"id\":\"N5YSbaUl9Y4\",\"title\":\"5 Little Ducks(Learn Colors Song) | Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/N5YSbaUl9Y4/mqdefault.jpg\",\"publishedAt\":\"2024-02-20T11:17:12Z\",\"source\":\"youtube\"},{\"id\":\"71h8MZshGSs\",\"title\":\"ABC Song + More Nursery Rhymes &amp; Kids Songs - CoComelon\",\"channel\":\"Cocomelon - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/71h8MZshGSs/mqdefault.jpg\",\"publishedAt\":\"2019-04-12T07:00:00Z\",\"source\":\"youtube\"},{\"id\":\"gm84HwG9F5I\",\"title\":\"Wheels On The Bus Animals + More Nursery Rhymes &amp; Kids Songs | NuNu Tv\",\"channel\":\"NuNu Tv - Nursery Rhymes \",\"thumbnail\":\"https://i.ytimg.com/vi/gm84HwG9F5I/mqdefault.jpg\",\"publishedAt\":\"2025-06-03T05:15:09Z\",\"source\":\"youtube\"},{\"id\":\"tW7w0m6_-pU\",\"title\":\"Five Colorful Ducks | Lalafun Nursery Rhymes &amp; Kids Songs #kidssongs #forkids #nurseryrhymes\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/tW7w0m6_-pU/mqdefault.jpg\",\"publishedAt\":\"2024-12-04T07:29:54Z\",\"source\":\"youtube\"},{\"id\":\"c2qNI3ZMHa8\",\"title\":\"Baby Lala Wakes Up Sleeping Bunnies 🐰 + MORE Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/c2qNI3ZMHa8/mqdefault.jpg\",\"publishedAt\":\"2025-01-06T09:23:08Z\",\"source\":\"youtube\"},{\"id\":\"cZQ0Jarh3IM\",\"title\":\"Apples and Bananas | Feeding Animals Song +MORE Lalafun Nursery Rhymes &amp; Kids Songs\",\"channel\":\"Lalafun - Nursery Rhymes\",\"thumbnail\":\"https://i.ytimg.com/vi/cZQ0Jarh3IM/mqdefault.jpg\",\"publishedAt\":\"2024-12-12T09:05:10Z\",\"source\":\"youtube\"}]}"
+    }
+  ]
+}

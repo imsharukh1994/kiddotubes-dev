@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KiddoTubes - Debug</title>
+    <style>
+        body { font-family: Arial; background: #f5f5f5; padding: 20px; }
+        .box { background: white; border: 2px solid #FF6B35; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .ok { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        h1 { color: #FF6B35; }
+    </style>
+</head>
+<body>
+    <h1>🔧 KiddoTubes Debug Console</h1>
+    
+    <div class="box">
+        <h2>📋 Loaded Resources</h2>
+        <p id="scripts">Checking scripts...</p>
+    </div>
+    
+    <div class="box">
+        <h2>🔐 Firebase Status</h2>
+        <p id="firebase">Checking Firebase...</p>
+    </div>
+    
+    <div class="box">
+        <h2>📁 Files Status</h2>
+        <p id="files">Checking files...</p>
+    </div>
+    
+    <div class="box">
+        <h2>🚀 Actions</h2>
+        <button onclick="testAPI()">Test Backend API</button>
+        <button onclick="testAuth()">Test Firebase Auth</button>
+        <button onclick="location.href='/'">Go to Main App</button>
+        <p id="testResult"></p>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
+
+    <script>
+        console.log("✅ Debug page loaded");
+        
+        // Check scripts
+        document.getElementById("scripts").innerHTML = `
+            <span class="ok">✅ HTML loaded</span><br>
+            <span class="ok">✅ Firebase SDK loaded</span><br>
+            Firebase object: ${typeof firebase === 'undefined' ? '<span class="error">❌ NOT FOUND</span>' : '<span class="ok">✅ Available</span>'}<br>
+        `;
+        
+        // Check files
+        fetch('auth.js').then(r => r.ok ? '<span class="ok">✅</span>' : '<span class="error">❌</span>')
+            .catch(() => '<span class="error">❌</span>')
+            .then(status => {
+                let html = 'auth.js: ' + (status || '<span class="ok">✅</span>') + '<br>';
+                
+                return fetch('app-no-firebase.js').then(r => r.ok ? html + 'app-no-firebase.js: <span class="ok">✅</span>' : html + 'app-no-firebase.js: <span class="error">❌</span>')
+                    .catch(() => html + 'app-no-firebase.js: <span class="error">❌</span>');
+            })
+            .then(html => document.getElementById("files").innerHTML = html);
+        
+        // Check Firebase
+        setTimeout(() => {
+            if (typeof firebase !== 'undefined') {
+                document.getElementById("firebase").innerHTML = '<span class="ok">✅ Firebase SDK Available</span>';
+            } else {
+                document.getElementById("firebase").innerHTML = '<span class="error">❌ Firebase SDK Not Loaded</span>';
+            }
+        }, 1000);
+        
+        // Test functions
+        function testAPI() {
+            fetch('http://localhost:5000/api/health')
+                .then(r => r.json())
+                .then(data => {
+                    document.getElementById("testResult").innerHTML = '<span class="ok">✅ Backend API Working!</span><br>' + JSON.stringify(data);
+                })
+                .catch(e => {
+                    document.getElementById("testResult").innerHTML = '<span class="error">❌ Backend API Error: ' + e.message + '</span>';
+                });
+        }
+        
+        function testAuth() {
+            if (typeof firebase === 'undefined') {
+                document.getElementById("testResult").innerHTML = '<span class="error">❌ Firebase not loaded</span>';
+            } else {
+                document.getElementById("testResult").innerHTML = '<span class="ok">✅ Firebase loaded: ' + firebase.SDK_VERSION + '</span>';
+            }
+        }
+    </script>
+</body>
+</html>
