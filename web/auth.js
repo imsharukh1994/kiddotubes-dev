@@ -162,12 +162,27 @@ async function googleLogin() {
     }
 
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await auth.signInWithPopup(provider);
-    
-    console.log("✅ Google login:", result.user.email);
-    
-    // Update UI
-    updateAuthUI();
+    // Try popup first (works in normal browsers). If popup is blocked or
+    // not supported, fallback to redirect flow which is more robust.
+    try {
+      const result = await auth.signInWithPopup(provider);
+      console.log("✅ Google login:", result.user && result.user.email);
+      updateAuthUI();
+      return;
+    } catch (popupErr) {
+      console.warn('Google popup failed, falling back to redirect:', popupErr && popupErr.code);
+      // Common popup errors: auth/popup-blocked, auth/operation-not-supported-in-this-environment
+      try {
+        await auth.signInWithRedirect(provider);
+        // On redirect, Firebase will handle state and call onAuthStateChanged after redirect completes
+        console.log('🔁 Redirecting to Google sign-in...');
+        return;
+      } catch (redirectErr) {
+        console.error('Google redirect failed:', redirectErr && redirectErr.message);
+        alert('❌ Google login failed: ' + (redirectErr && redirectErr.message || popupErr && popupErr.message));
+        return;
+      }
+    }
     
   } catch (error) {
     console.error("Google login error:", error.message);
