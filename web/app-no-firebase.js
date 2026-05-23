@@ -24,7 +24,7 @@ async function initializeAPIKey() {
 }
 
 // Initialize API key immediately
-initializeAPIKey();
+const apiKeyPromise = initializeAPIKey();
 
 let videoList = null; // Will be set in DOMContentLoaded
 
@@ -315,6 +315,11 @@ async function loadCategory(cat, searchQuery = null) {
             
             data = await res.json();
             console.log("✅ Backend API successful");
+
+            if (data && data.source === 'sample' && data.message?.includes('YouTube API not configured') && API_KEY) {
+                console.warn('⚠️ Backend returned sample fallback; trying direct YouTube API using client key');
+                throw new Error('Backend returned sample fallback');
+            }
         } catch (backendError) {
             console.warn("⚠️ Backend unavailable, trying direct YouTube API...", backendError.message);
             
@@ -839,8 +844,9 @@ function showThumbnailPlayer(container, videoId, youtubeUrl, title) {
 }
 
 // ===== PAGE INITIALIZATION =====
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     console.log("🎬 DOM Content Loaded - KiddoTubes Starting");
+    await apiKeyPromise;
     
     // Initialize videoList now that DOM is ready
     videoList = document.getElementById("videoList");
