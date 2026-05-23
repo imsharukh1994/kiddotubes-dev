@@ -25,8 +25,8 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  // Parse the request URL
-  const parsedUrl = url.parse(req.url);
+  // Parse the request URL using modern WHATWG URL API
+  const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   let pathname = `.${parsedUrl.pathname}`;
   
   // Default to index.html for root

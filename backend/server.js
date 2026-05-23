@@ -5,7 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-// Use native fetch (Node 18+)
+const fetch = global.fetch || require("node-fetch");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,19 +16,24 @@ app.use(express.json());
 // MOVED: Static file serving moved to AFTER API routes (see bottom of file)
 
 // ===== MONGODB CONNECTION =====
-const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://Superadmin:db_password@masterdata.rclrgon.mongodb.net/kiddotubes?retryWrites=true&w=majority';
+const mongoURI = process.env.MONGODB_URI;
 
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('✅ Connected to MongoDB Atlas');
-})
-.catch(err => {
-    console.error('❌ MongoDB connection error:', err);
-    // Continue running even if MongoDB fails
-});
+if (mongoURI) {
+    mongoose.connect(mongoURI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => {
+        console.log('✅ Connected to MongoDB Atlas');
+    })
+    .catch(err => {
+        console.error('❌ MongoDB connection error:', err);
+        // Continue running even if MongoDB fails
+    });
+} else {
+    console.warn('⚠️ MongoDB URI not configured. MongoDB-dependent routes will be unavailable.');
+}
+
 
 // ===== DATABASE SCHEMAS =====
 
