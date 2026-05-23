@@ -316,9 +316,18 @@ async function loadCategory(cat, searchQuery = null) {
             data = await res.json();
             console.log("✅ Backend API successful");
 
-            if (data && data.source === 'sample' && data.message?.includes('YouTube API not configured') && API_KEY) {
-                console.warn('⚠️ Backend returned sample fallback; trying direct YouTube API using client key');
-                throw new Error('Backend returned sample fallback');
+            // If backend returns the sample fallback because the server YOUTUBE_API_KEY
+            // is not configured, prefer trying the direct client-side YouTube API
+            // when a client API key is available. Do this before proceeding with
+            // backend-provided sample data so we attempt live results whenever possible.
+            if (data && data.source === 'sample' && typeof data.message === 'string' && data.message.toLowerCase().includes('youtube api not configured')) {
+                if (API_KEY) {
+                    console.warn('⚠️ Backend returned sample fallback; attempting direct YouTube Data v3 using client API key');
+                    // signal to fallback handler by clearing data so catch block will run
+                    data = null;
+                } else {
+                    console.warn('⚠️ Backend returned sample fallback and no client API key available');
+                }
             }
         } catch (backendError) {
             console.warn("⚠️ Backend unavailable, trying direct YouTube API...", backendError.message);
