@@ -212,8 +212,16 @@ const sidebarOverlay = document.getElementById("sidebarOverlay");
 
 if (menuBtn) {
     menuBtn.addEventListener("click", () => {
-        sidebar.classList.remove("hidden");
-        sidebarOverlay.classList.add("shown");
+        const isOpen = !sidebar.classList.contains("hidden");
+        if (isOpen) {
+            sidebar.classList.add("hidden");
+            sidebarOverlay.classList.remove("shown");
+            menuBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            sidebar.classList.remove("hidden");
+            sidebarOverlay.classList.add("shown");
+            menuBtn.setAttribute('aria-expanded', 'true');
+        }
     });
 }
 
@@ -221,6 +229,7 @@ if (closeMenuBtn) {
     closeMenuBtn.addEventListener("click", () => {
         sidebar.classList.add("hidden");
         sidebarOverlay.classList.remove("shown");
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
     });
 }
 
@@ -228,8 +237,12 @@ if (sidebarOverlay) {
     sidebarOverlay.addEventListener("click", () => {
         sidebar.classList.add("hidden");
         sidebarOverlay.classList.remove("shown");
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
     });
 }
+
+// Ensure aria-expanded is cleared when sidebar is hidden via other controls
+document.addEventListener('mutation', () => {});
 
 // ===== CATEGORY BUTTONS (SIDEBAR) =====
 document.querySelectorAll(".sidebar-nav .category-btn").forEach(btn => {

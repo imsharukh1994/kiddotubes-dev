@@ -11,22 +11,24 @@
      crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
 <!-- NAVBAR -->
 <header class="navbar">
     <div class="navbar-left">   
-        <button id="menuBtn" class="nav-btn menu-btn">
-            <i class="fas fa-bars"></i>
+        <button id="menuBtn" class="nav-btn menu-btn" aria-controls="sidebar" aria-expanded="false" aria-label="Open menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
         </button>
     </div>
     <div class="navbar-center">
-        <div class="logo-container">
-            <img src="Assest/ic_logo.png" alt="KiddoTubes" class="logo-img">
-            <span class="logo-text">KiddoTubes</span>
-        </div>
+        <a href="/" class="logo-link" title="Go to KiddoTubes home">
+            <div class="logo-container" role="img" aria-label="KiddoTubes logo">
+                <img src="Assest/ic_logo.png" alt="KiddoTubes" class="logo-img">
+                <span class="logo-text">KiddoTubes</span>
+            </div>
+        </a>
     </div>
     <div class="navbar-right">
         <button id="historyBtn" class="nav-btn history-btn" title="Watch History">
