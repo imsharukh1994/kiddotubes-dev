@@ -3,7 +3,7 @@
 // Single unified JavaScript file (no Firebase for now)
 
 // API Key - should be fetched from backend in production, not hardcoded
-let API_KEY = "AIzaSyA8s6aCuh6VRgOFj1sMqKn1mrS_5_WaMVk"; // Fallback (will be overridden if backend config available)
+let API_KEY = "AIzaSyDJIlSi1W1NwTDXR5buu1-MSwmpd-7a8BI"; // Fallback (will be overridden if backend config available)
 let apiKeyReady = false;
 
 // Initialize API key from backend
@@ -321,12 +321,30 @@ async function loadCategory(cat, searchQuery = null) {
             // when a client API key is available. Do this before proceeding with
             // backend-provided sample data so we attempt live results whenever possible.
             if (data && data.source === 'sample' && typeof data.message === 'string' && data.message.toLowerCase().includes('youtube api not configured')) {
-                if (API_KEY) {
+                if (API_KEY && API_KEY !== 'AIzaSyDJIlSi1W1NwTDXR5buu1-MSwmpd-7a8BI') {
                     console.warn('⚠️ Backend returned sample fallback; attempting direct YouTube Data v3 using client API key');
-                    // signal to fallback handler by clearing data so catch block will run
-                    data = null;
+                    try {
+                        url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=30&q=${encodeURIComponent(query)}&key=${API_KEY}&safeSearch=strict&regionCode=US&order=relevance`;
+                        console.log("Fetching direct YouTube API as fallback...");
+                        const fallbackRes = await fetch(url);
+
+                        if (!fallbackRes.ok) {
+                            throw new Error(`YouTube API Error: ${fallbackRes.status} - ${fallbackRes.statusText}`);
+                        }
+
+                        const fallbackData = await fallbackRes.json();
+                        if (fallbackData.error) {
+                            throw new Error(fallbackData.error.message);
+                        }
+
+                        data = fallbackData;
+                        console.log("✅ Direct YouTube API successful after backend fallback");
+                    } catch (fallbackError) {
+                        console.error('❌ Direct YouTube fallback failed:', fallbackError);
+                        console.warn('⚠️ Falling back to backend sample data');
+                    }
                 } else {
-                    console.warn('⚠️ Backend returned sample fallback and no client API key available');
+                    console.warn('⚠️ Backend returned sample fallback and no valid client API key available');
                 }
             }
         } catch (backendError) {
