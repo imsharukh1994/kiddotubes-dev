@@ -321,7 +321,7 @@ async function loadCategory(cat, searchQuery = null) {
             // when a client API key is available. Do this before proceeding with
             // backend-provided sample data so we attempt live results whenever possible.
             if (data && data.source === 'sample' && typeof data.message === 'string' && data.message.toLowerCase().includes('youtube api not configured')) {
-                if (API_KEY && API_KEY !== 'AIzaSyDJIlSi1W1NwTDXR5buu1-MSwmpd-7a8BI') {
+                if (API_KEY && API_KEY !== 'your_youtube_api_key') {
                     console.warn('⚠️ Backend returned sample fallback; attempting direct YouTube Data v3 using client API key');
                     try {
                         url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=30&q=${encodeURIComponent(query)}&key=${API_KEY}&safeSearch=strict&regionCode=US&order=relevance`;
