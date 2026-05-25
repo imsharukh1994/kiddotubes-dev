@@ -1,4 +1,19 @@
 {
+  "name": "kiddotubes",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-05-25",
+  "assets": {
+    "directory": "./web"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kiddotubes-prod",
+      "database_id": "REPLACE_WITH_PROD_ID"
+    }
+  ]
+}
+{
   "name": "kiddotubes-dev",
   "compatibility_date": "2026-05-25",
   "assets": {

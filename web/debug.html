@@ -36,17 +36,20 @@
         <p id="testResult"></p>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.0/firebase-auth-compat.js"></script>
-
+    <script>
+        // Debug page updated for Cloudflare Worker API
+        const DEV_API = 'https://kiddotubes-dev.<subdomain>.workers.dev';
+        const PROD_API = 'https://kiddotubes.<subdomain>.workers.dev';
+        const API_BASE = window.API_URL || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? DEV_API : PROD_API);
+    </script>
     <script>
         console.log("✅ Debug page loaded");
         
         // Check scripts
         document.getElementById("scripts").innerHTML = `
             <span class="ok">✅ HTML loaded</span><br>
-            <span class="ok">✅ Firebase SDK loaded</span><br>
-            Firebase object: ${typeof firebase === 'undefined' ? '<span class="error">❌ NOT FOUND</span>' : '<span class="ok">✅ Available</span>'}<br>
+            <span class="ok">✅ Debug scripts loaded</span><br>
+            API base: ${API_BASE}<br>
         `;
         
         // Check files
@@ -61,17 +64,11 @@
             .then(html => document.getElementById("files").innerHTML = html);
         
         // Check Firebase
-        setTimeout(() => {
-            if (typeof firebase !== 'undefined') {
-                document.getElementById("firebase").innerHTML = '<span class="ok">✅ Firebase SDK Available</span>';
-            } else {
-                document.getElementById("firebase").innerHTML = '<span class="error">❌ Firebase SDK Not Loaded</span>';
-            }
-        }, 1000);
+        document.getElementById("firebase").innerHTML = '<span class="ok">✅ Firebase removed - using D1-backed users</span>';
         
         // Test functions
         function testAPI() {
-            fetch('http://localhost:5000/api/health')
+            fetch(API_BASE + '/api/health')
                 .then(r => r.json())
                 .then(data => {
                     document.getElementById("testResult").innerHTML = '<span class="ok">✅ Backend API Working!</span><br>' + JSON.stringify(data);

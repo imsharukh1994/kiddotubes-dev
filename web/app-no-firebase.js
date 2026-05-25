@@ -3,13 +3,17 @@
 // Single unified JavaScript file (no Firebase for now)
 
 // API Key - should be fetched from backend in production, not hardcoded
-let API_KEY = "AIzaSyDJIlSi1W1NwTDXR5buu1-MSwmpd-7a8BI"; // Fallback (will be overridden if backend config available)
+let API_KEY = ""; // will be loaded from Worker / D1
 let apiKeyReady = false;
+
+const DEV_API = 'https://kiddotubes-dev.<subdomain>.workers.dev';
+const PROD_API = 'https://kiddotubes.<subdomain>.workers.dev';
+const API_BASE = window.API_URL || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? DEV_API : PROD_API);
 
 // Initialize API key from backend
 async function initializeAPIKey() {
     try {
-        const response = await fetch('http://localhost:5000/api/config');
+        const response = await fetch(API_BASE + '/api/config');
         if (response.ok) {
             const config = await response.json();
             if (config.youtubeApiKey) {

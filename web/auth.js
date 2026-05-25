@@ -1,292 +1,92 @@
-// ===== FIREBASE AUTH - OPTIMIZED & FAST =====
-console.log("🚀 Firebase Auth Loading (Optimized)...");
+// Simplified auth using Cloudflare Worker + D1 for user persistence
+console.log('Auth (D1-backed) loading...');
 
-let auth = null;
-let currentUser = null;
+const DEV_API = 'https://kiddotubes-dev.<subdomain>.workers.dev';
+const PROD_API = 'https://kiddotubes.<subdomain>.workers.dev';
+const API_BASE = window.API_URL || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? DEV_API : PROD_API);
 
-// Firebase config - from .env via server or hardcoded as fallback
-const firebaseConfig = {
-  apiKey: "AIzaSyDsX8GuCj3v1MDIUH3OoaDYoNy7BqEPR7o",
-  authDomain: "kiddotubes-85ae3.firebaseapp.com",
-  projectId: "kiddotubes",
-  storageBucket: "kiddotubes.firebasestorage.app",
-  messagingSenderId: "256759094376",
-  appId: "1:256759094376:web:9cbff83417d2b3b8ba6fdd",
-  measurementId: "G-QV8XEE2NMW"
-};
-
-// Initialize Firebase immediately when SDK loads
-function initFirebase() {
-  if (typeof firebase === 'undefined') {
-    setTimeout(initFirebase, 100);
-    return;
-  }
-
-  try {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    auth = firebase.auth();
-    setupListeners();
-    checkAuthState();
-    console.log("✅ Firebase Ready");
-  } catch (error) {
-    console.error("❌ Firebase Error:", error.message);
-    setTimeout(initFirebase, 2000);
-  }
+function setCurrentUser(user) {
+  if (user) localStorage.setItem('currentUser', JSON.stringify(user));
+  else localStorage.removeItem('currentUser');
+  updateAuthUI();
 }
 
-// Setup auth listeners
-function setupListeners() {
-  const loginForm = document.getElementById("loginForm");
-  const signupForm = document.getElementById("signupForm") || document.getElementById("registerForm");
-  const googleButtons = [
-    document.getElementById("googleSignInBtn"),
-    document.getElementById("googleLoginBtn"),
-    document.getElementById("googleRegisterBtn")
-  ].filter(Boolean);
-
-  if (loginForm) {
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = document.getElementById("loginEmail").value;
-      const password = document.getElementById("loginPassword").value;
-      loginEmail(email, password);
+async function signUpEmail(email, _password, name) {
+  try {
+    const res = await fetch(`${API_BASE}/api/users`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name })
     });
-  }
-
-  if (signupForm) {
-    signupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nameField = document.getElementById("signupName") || document.getElementById("registerName");
-      const emailField = document.getElementById("signupEmail") || document.getElementById("registerEmail");
-      const passwordField = document.getElementById("signupPassword") || document.getElementById("registerPassword");
-      const name = nameField?.value;
-      const email = emailField?.value;
-      const password = passwordField?.value;
-      signUpEmail(email, password, name);
-    });
-  }
-
-  googleButtons.forEach((btn) => {
-    btn.addEventListener("click", googleLogin);
-  });
-}
-
-// Check auth state
-function checkAuthState() {
-  if (!auth) {
-    setTimeout(checkAuthState, 500);
-    return;
-  }
-
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      currentUser = user;
-      localStorage.setItem("currentUser", JSON.stringify({
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName || "User",
-        photoURL: user.photoURL
-      }));
-      document.getElementById("loginModal")?.classList.add("hidden");
-      document.getElementById("registerModal")?.classList.add("hidden");
-      document.getElementById("phoneAuthModal")?.classList.add("hidden");
-      updateAuthUI();
-    } else {
-      currentUser = null;
-      localStorage.removeItem("currentUser");
-      updateAuthUI();
+    const data = await res.json();
+    if (data?.user) {
+      setCurrentUser(data.user);
+      return data.user;
     }
-  });
+    throw new Error('Signup failed');
+  } catch (err) {
+    console.error('Signup error:', err);
+    throw err;
+  }
 }
 
-// Email login
-async function loginEmail(email, password) {
+async function loginEmail(email, _password) {
   try {
-    if (!auth) {
-      alert("Firebase not ready");
-      return;
+    const res = await fetch(`${API_BASE}/api/users?email=${encodeURIComponent(email)}`);
+    const data = await res.json();
+    if (data?.user) {
+      setCurrentUser(data.user);
+      return data.user;
     }
-    
-    const result = await auth.signInWithEmailAndPassword(email, password);
-    console.log("✅ Logged in:", result.user.email);
-    
-    // Clear form
-    const loginForm = document.getElementById("loginForm");
-    if (loginForm) loginForm.reset();
-    const loginError = document.getElementById("loginError");
-    if (loginError) loginError.style.display = "none";
-    
-    // Update UI
-    updateAuthUI();
-    
-  } catch (error) {
-    const errorMsg = document.getElementById("loginError");
-    if (errorMsg) {
-      errorMsg.textContent = "❌ " + error.message;
-      errorMsg.style.display = "block";
-    }
-    console.error("Login error:", error);
+    throw new Error('User not found');
+  } catch (err) {
+    console.error('Login error:', err);
+    throw err;
   }
 }
 
-// Email signup
-async function signUpEmail(email, password, name) {
-  try {
-    if (!auth) {
-      alert("Firebase not ready");
-      return;
-    }
-    
-    const result = await auth.createUserWithEmailAndPassword(email, password);
-    await result.user.updateProfile({ displayName: name });
-    
-    console.log("✅ Account created:", result.user.email);
-    
-    // Clear form
-    const signupForm = document.getElementById("signupForm");
-    if (signupForm) signupForm.reset();
-    const signupError = document.getElementById("signupError");
-    if (signupError) signupError.style.display = "none";
-    
-    // Update UI
-    updateAuthUI();
-    
-  } catch (error) {
-    const errorMsg = document.getElementById("signupError");
-    if (errorMsg) {
-      errorMsg.textContent = "❌ " + error.message;
-      errorMsg.style.display = "block";
-    }
-    console.error("Signup error:", error);
-  }
-}
-
-// Google login
-async function googleLogin() {
-  try {
-    if (!auth) {
-      alert("Firebase not ready");
-      return;
-    }
-
-    const provider = new firebase.auth.GoogleAuthProvider();
-    // Try popup first (works in normal browsers). If popup is blocked or
-    // not supported, fallback to redirect flow which is more robust.
-    try {
-      const result = await auth.signInWithPopup(provider);
-      console.log("✅ Google login:", result.user && result.user.email);
-      updateAuthUI();
-      return;
-    } catch (popupErr) {
-      console.warn('Google popup failed, falling back to redirect:', popupErr && popupErr.code);
-      // Common popup errors: auth/popup-blocked, auth/operation-not-supported-in-this-environment
-      try {
-        await auth.signInWithRedirect(provider);
-        // On redirect, Firebase will handle state and call onAuthStateChanged after redirect completes
-        console.log('🔁 Redirecting to Google sign-in...');
-        return;
-      } catch (redirectErr) {
-        console.error('Google redirect failed:', redirectErr && redirectErr.message);
-        alert('❌ Google login failed: ' + (redirectErr && redirectErr.message || popupErr && popupErr.message));
-        return;
-      }
-    }
-    
-  } catch (error) {
-    console.error("Google login error:", error.message);
-    alert("❌ Google login failed: " + error.message);
-  }
-}
-
-// Logout
 async function logoutUser() {
-  try {
-    if (auth) {
-      await auth.signOut();
-      console.log("✅ Logged out");
-      closeModal("profileModal");
-      updateAuthUI();
-    }
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
+  setCurrentUser(null);
 }
 
-// Update UI based on auth state
 function updateAuthUI() {
-  const user = localStorage.getItem("currentUser");
-  const authContent = document.getElementById("authContent");
-  const profileContent = document.getElementById("profileContent");
-  
+  const user = localStorage.getItem('currentUser');
+  const authContent = document.getElementById('authContent');
+  const profileContent = document.getElementById('profileContent');
+
   if (user) {
-    const userData = JSON.parse(user);
-    
-    // Hide auth, show profile
-    if (authContent) {
-      authContent.classList.add("hidden");
-      authContent.style.display = "none";
-    }
-    if (profileContent) {
-      profileContent.classList.remove("hidden");
-      profileContent.style.display = "block";
-    }
-    
-    // Update profile info
-    const profileName = document.getElementById("profileName");
-    const profileEmail = document.getElementById("profileEmail");
-    
-    if (profileName) profileName.textContent = userData.displayName || "User";
-    if (profileEmail) profileEmail.textContent = userData.email;
-    
-    console.log("👤 Profile updated:", userData.displayName);
-    
+    const u = JSON.parse(user);
+    if (authContent) authContent.classList.add('hidden');
+    if (profileContent) profileContent.classList.remove('hidden');
+    document.getElementById('profileName')?.textContent = u.name || u.email;
+    document.getElementById('profileEmail')?.textContent = u.email;
   } else {
-    // Show auth, hide profile
-    if (authContent) {
-      authContent.classList.remove("hidden");
-      authContent.style.display = "block";
-    }
-    if (profileContent) {
-      profileContent.classList.add("hidden");
-      profileContent.style.display = "none";
-    }
+    if (authContent) authContent.classList.remove('hidden');
+    if (profileContent) profileContent.classList.add('hidden');
   }
 }
 
-// Modal helpers
-function showModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.remove("hidden");
-    modal.style.display = "block";
-  }
-}
+// Hook forms
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm') || document.getElementById('registerForm');
 
-function closeModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.add("hidden");
-    modal.style.display = "none";
-  }
-}
+  if (loginForm) loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    try { await loginEmail(email); } catch (err) { alert(err.message); }
+  });
 
-// Initialize on DOM ready
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initFirebase);
-} else {
-  initFirebase();
-}
+  if (signupForm) signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('signupName')?.value;
+    const email = document.getElementById('signupEmail')?.value;
+    try { await signUpEmail(email, null, name); } catch (err) { alert(err.message); }
+  });
 
-// Fallback initialization
-setTimeout(initFirebase, 500);
+  updateAuthUI();
+});
 
-// Export to global
 window.loginEmail = loginEmail;
 window.signUpEmail = signUpEmail;
-window.googleLogin = googleLogin;
 window.logoutUser = logoutUser;
-window.checkAuthState = checkAuthState;
-window.closeModal = closeModal;
-window.showModal = showModal;

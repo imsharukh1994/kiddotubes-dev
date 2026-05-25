@@ -1,7 +1,9 @@
-// ===== MONGODB API CLIENT =====
-// Helper functions to interact with MongoDB backend
+// ===== API CLIENT =====
+// Helper functions to interact with Cloudflare Worker API (D1-backed)
 
-const API_URL = 'http://localhost:5000/api';
+const DEV_API = 'https://kiddotubes-dev.<subdomain>.workers.dev';
+const PROD_API = 'https://kiddotubes.<subdomain>.workers.dev';
+const API_URL = (window.API_URL || ((location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? DEV_API : PROD_API)) + '/api';
 
 // ===== USER MANAGEMENT =====
 
