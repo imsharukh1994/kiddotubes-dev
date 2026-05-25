@@ -69,6 +69,7 @@
         </button> 
         <button class="category-btn" data-cat="Short">
             <i class="fas fa-video"></i> <span>Shorts</span>
+        </button>
     </nav>
 </aside>
 
@@ -271,57 +272,6 @@
             </div>
 
             <button id="logoutBtn" class="logout-btn">🚪 Logout</button>
-        </div>
-
-        <!-- Auth Content (when not logged in) -->
-        <div id="authContent" class="auth-content">
-            <!-- Login Tab -->
-            <div class="auth-tabs">
-                <button class="auth-tab-btn active" onclick="switchToLogin(event)">Login</button>
-                <button class="auth-tab-btn" onclick="switchToRegister(event)">Sign Up</button>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm" class="auth-form" style="display:block;">
-                <h2>Welcome Back</h2>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="auth-btn">Login</button>
-                <p class="form-error" id="loginError" style="display:none;"></p>
-            </form>
-
-            <!-- Register Form -->
-            <form id="signupForm" class="auth-form" style="display:none;">
-                <h2>Create Account</h2>
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signupPassword" placeholder="••••••••" required>
-                </div>
-                <button type="submit" class="auth-btn">Create Account</button>
-                <p class="form-error" id="signupError" style="display:none;"></p>
-            </form>
-
-            <!-- Google Sign-In -->
-            <div style="text-align: center; margin: 20px 0;">
-                <p style="color: #999; margin-bottom: 15px;">OR</p>
-                <button type="button" id="googleSignInBtn" class="social-btn google-btn">
-                    <i class="fab fa-google"></i> Sign in with Google
-                </button>
-            </div>
         </div>
     </div>
 </div>

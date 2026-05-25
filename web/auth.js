@@ -39,9 +39,13 @@ function initFirebase() {
 // Setup auth listeners
 function setupListeners() {
   const loginForm = document.getElementById("loginForm");
-  const signupForm = document.getElementById("signupForm");
-  const googleBtn = document.getElementById("googleSignInBtn");
-  
+  const signupForm = document.getElementById("signupForm") || document.getElementById("registerForm");
+  const googleButtons = [
+    document.getElementById("googleSignInBtn"),
+    document.getElementById("googleLoginBtn"),
+    document.getElementById("googleRegisterBtn")
+  ].filter(Boolean);
+
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -54,16 +58,19 @@ function setupListeners() {
   if (signupForm) {
     signupForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = document.getElementById("signupEmail").value;
-      const password = document.getElementById("signupPassword").value;
-      const name = document.getElementById("signupName").value;
+      const nameField = document.getElementById("signupName") || document.getElementById("registerName");
+      const emailField = document.getElementById("signupEmail") || document.getElementById("registerEmail");
+      const passwordField = document.getElementById("signupPassword") || document.getElementById("registerPassword");
+      const name = nameField?.value;
+      const email = emailField?.value;
+      const password = passwordField?.value;
       signUpEmail(email, password, name);
     });
   }
 
-  if (googleBtn) {
-    googleBtn.addEventListener("click", googleLogin);
-  }
+  googleButtons.forEach((btn) => {
+    btn.addEventListener("click", googleLogin);
+  });
 }
 
 // Check auth state
@@ -82,6 +89,9 @@ function checkAuthState() {
         displayName: user.displayName || "User",
         photoURL: user.photoURL
       }));
+      document.getElementById("loginModal")?.classList.add("hidden");
+      document.getElementById("registerModal")?.classList.add("hidden");
+      document.getElementById("phoneAuthModal")?.classList.add("hidden");
       updateAuthUI();
     } else {
       currentUser = null;

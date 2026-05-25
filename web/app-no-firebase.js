@@ -1222,6 +1222,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     if (parentBtn && parentModal) {
         parentBtn.addEventListener("click", () => {
+            if (!currentUser) {
+                if (loginModal) {
+                    loginModal.classList.remove("hidden");
+                }
+                return;
+            }
             parentModal.classList.remove("hidden");
         });
     }
@@ -1364,144 +1370,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("✅ App fully initialized!");
 });
 
-// ===== AUTHENTICATION FUNCTIONS (STUB IMPLEMENTATIONS) =====
-
-// Login with email and password
-async function loginEmail(email, password) {
-    try {
-        console.log("🔐 Login attempt with:", email);
-        const response = await fetch(`${API_BASE}/api/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        
-        if (!response.ok) {
-            console.error("Login failed:", response.statusText);
-            return false;
-        }
-        
-        const data = await response.json();
-        if (data.user) {
-            localStorage.setItem("currentUser", JSON.stringify(data.user));
-            console.log("✅ Login successful!");
-            return true;
-        }
-    } catch (err) {
-        console.error("Login error:", err);
-        alert("⚠️ Login not yet configured. Please use Google or Phone login.");
-    }
-    return false;
-}
-
-// Sign up with email and password
-async function signUpEmail(email, password) {
-    try {
-        console.log("📝 Signup attempt with:", email);
-        const response = await fetch(`${API_BASE}/api/auth/signup`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-        
-        if (!response.ok) {
-            console.error("Signup failed:", response.statusText);
-            return false;
-        }
-        
-        const data = await response.json();
-        if (data.user) {
-            localStorage.setItem("currentUser", JSON.stringify(data.user));
-            console.log("✅ Signup successful!");
-            return true;
-        }
-    } catch (err) {
-        console.error("Signup error:", err);
-        alert("⚠️ Signup not yet configured. Please use Google or Phone login.");
-    }
-    return false;
-}
-
-// Google login
-async function googleLogin() {
-    try {
-        console.log("🔵 Google login initiated");
-        alert("ℹ️ Google login coming soon!");
-        // TODO: Implement Google Firebase authentication
-        return false;
-    } catch (err) {
-        console.error("Google login error:", err);
-    }
-    return false;
-}
-
-// Logout user
-function logoutUser() {
-    try {
-        console.log("🚪 Logging out...");
-        localStorage.removeItem("currentUser");
-        console.log("✅ Logged out!");
-        return true;
-    } catch (err) {
-        console.error("Logout error:", err);
-    }
-    return false;
-}
-
-// Send OTP to phone
-async function sendPhoneOTP() {
-    try {
-        const phoneInput = document.getElementById("phoneInput");
-        if (!phoneInput || !phoneInput.value) {
-            alert("Please enter a phone number");
-            return false;
-        }
-        
-        console.log("📱 Sending OTP to:", phoneInput.value);
-        alert("ℹ️ Phone OTP coming soon!");
-        // TODO: Implement phone authentication
-        return false;
-    } catch (err) {
-        console.error("Send OTP error:", err);
-    }
-    return false;
-}
-
-// Verify OTP
-async function verifyPhoneOTP() {
-    try {
-        const otpInput = document.getElementById("otpInput");
-        if (!otpInput || !otpInput.value) {
-            alert("Please enter OTP");
-            return false;
-        }
-        
-        console.log("🔐 Verifying OTP:", otpInput.value);
-        alert("ℹ️ Phone OTP verification coming soon!");
-        // TODO: Implement phone authentication
-        return false;
-    } catch (err) {
-        console.error("Verify OTP error:", err);
-    }
-    return false;
-}
-
-// Reset phone auth form
-function resetPhoneAuth() {
-    try {
-        const phoneInput = document.getElementById("phoneInput");
-        const otpInput = document.getElementById("otpInput");
-        const otpSection = document.getElementById("otpSection");
-        
-        if (phoneInput) phoneInput.value = "";
-        if (otpInput) otpInput.value = "";
-        if (otpSection) otpSection.style.display = "none";
-        
-        console.log("✅ Phone auth form reset");
-    } catch (err) {
-        console.error("Reset phone auth error:", err);
-    }
-}
+// ===== AUTHENTICATION FUNCTIONS =====
+// Firebase authentication is handled by auth.js.
+// This file relies on auth.js exposing loginEmail, signUpEmail, googleLogin, logoutUser,
+// and phone auth helpers globally.
 
 // ===== NEW FEATURE 1: WATCH HISTORY =====
 const API_BASE = "http://localhost:5000";
@@ -1814,7 +1686,6 @@ function createNewProfile() {
 }
 
 document.getElementById("addProfileBtn")?.addEventListener("click", createNewProfile);
-document.getElementById("profileBtn")?.addEventListener("click", loadProfiles);
 
 // ===== NEW FEATURE 5: RECOMMENDATIONS =====
 function loadRecommendations() {
