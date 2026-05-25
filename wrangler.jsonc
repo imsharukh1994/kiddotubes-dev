@@ -1,6 +1,7 @@
 {
   "name": "kiddotubes-dev",
   "compatibility_date": "2026-05-25",
+  "main": "src/index.js",
   "assets": {
     "directory": "./web"
   },
