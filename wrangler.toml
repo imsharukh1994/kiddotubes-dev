@@ -1,7 +1,11 @@
-name = "kiddotubes"
-
-"d1_databases": [{
-    "binding": "DB",
-    "database_name": "kiddotubes-dev",
-    "database_id": "46c1096a-ac95-4004-ba32-f0fb15a2da53"
- }]
+{
+  "name": "kiddotubes",
+  "compatibility_date": "2026-05-25",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "kiddotubes-dev",
+      "database_id": "46c1096a-ac95-4004-ba32-f0fb15a2da53"
+    }
+  ]
+}
