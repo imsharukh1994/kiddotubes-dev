@@ -21,6 +21,7 @@
   },
   "type": "commonjs",
   "dependencies": {
+    "boneyard-js": "^1.8.1",
     "dotenv": "^16.6.1",
     "puppeteer": "^24.31.0",
     "ytdl-core": "^4.11.5"
